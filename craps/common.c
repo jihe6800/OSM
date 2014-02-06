@@ -49,6 +49,9 @@ void win_handler(int signum)
 	/* TODO - Check that the signum is indeed SIGUSR1 */
   if(signum == SIGUSR1){
     winner = 1;
+    results = 1;
+  } else {
+    results = 1;
   }
 
 	/* TODO - this player is the winner, make the appropriate changes
@@ -70,7 +73,7 @@ void shooter(int id, int seed_fd_rd, int score_fd_wr)
 	int score, seed = 0;
 
 	/* TODO: Install SIGUSR1 handler */
-
+	signal(SIGUSR1, win_handler);
 	/* TODO: Install SIGUSR2 handler */
 
 
