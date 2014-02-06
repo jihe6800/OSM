@@ -68,6 +68,11 @@ int main(int argc, char *argv[])
 		write(pfd[i*2][1], &seed, sizeof(int));
 	}
 
+
+	for (i = 0; i < NUM_PLAYERS; i++) {
+	  wait(NULL);
+	}
+
 	/* TODO: get the dice results from the players, find the winner */
 	int scores[NUM_PLAYERS];
 	for (i = 0; i < NUM_PLAYERS; i++) {
@@ -92,9 +97,6 @@ int main(int argc, char *argv[])
 
 	}
 
-	for (i = 0; i < NUM_PLAYERS; i++) {
-	  wait(NULL);
-	}
 
 	printf("master: the game ends\n");
 

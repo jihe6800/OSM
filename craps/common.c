@@ -47,6 +47,9 @@ void end_handler(int signum)
 void win_handler(int signum)
 {
 	/* TODO - Check that the signum is indeed SIGUSR1 */
+  if(signum == SIGUSR1){
+    winner = 1;
+  }
 
 	/* TODO - this player is the winner, make the appropriate changes
 	   upon reception of this singal */
@@ -86,7 +89,7 @@ void shooter(int id, int seed_fd_rd, int score_fd_wr)
 
 	write(score_fd_wr, &score, sizeof(int));
 	/* spin while I wait for the results */
-	while (!results) ;
+	while (1 != 0) ;
 
 	if (winner)
 		fprintf(stderr, "player %d: Walking away rich\n", id);
