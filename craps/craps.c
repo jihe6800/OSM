@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	for (i = 0; i < NUM_PLAYERS; i++) {
 		/* TODO: spawn the processes that simulate the players */
 
-	  switch(id = fork()){
+	  switch(fork()){
 	  case -1:
 	    perror("Failed to fork.");
 	    exit(EXIT_FAILURE);
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 	    close(pfd[i*2][0]);
 	    exit(EXIT_SUCCESS);
 	  default:
-	    waitpid(id);
+	    //waitpid(id);
 	    break;
 	  }
 	  //exit(EXIT_SUCCESS);
