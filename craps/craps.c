@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 	printf("master: player %d WINS\n", winner);
 
 	/* TODO: signal the winner */
-	kill(pid[winner], SIGUSR1)
+	kill(pid[winner], SIGUSR1);
 
 	/* TODO: signal all players the end of game */
 	for (i = 0; i < NUM_PLAYERS; i++) {
