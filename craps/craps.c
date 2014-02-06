@@ -22,9 +22,11 @@
 
 int main(int argc, char *argv[])
 {
-	int i, seed;
-	int pfd[2*NUM_PLAYERS][2];
-
+  pid_t pids;
+  pid_t pid[NUM_PLAYERS];
+  int i, seed;
+  int pfd[2*NUM_PLAYERS][2];
+  
         /* TODO: Use the following variables in the exec system call. Using the
 	 * function sprintf and the arg1 variable you can pass the id parameter
 	 * to the children
@@ -44,11 +46,12 @@ int main(int argc, char *argv[])
 	for (i = 0; i < NUM_PLAYERS; i++) {
 		/* TODO: spawn the processes that simulate the players */
 
-	  switch(fork()){
+	  switch(pids = fork()){
 	  case -1:
 	    perror("Failed to fork.");
 	    exit(EXIT_FAILURE);
 	  case 0:
+	    pid[i] = pids;
 	    shooter(i, pfd[i*2][0], pfd[i][1]);
 	    close(pfd[i][1]);
 	    close(pfd[i*2][0]);
@@ -90,7 +93,7 @@ int main(int argc, char *argv[])
 	printf("master: player %d WINS\n", winner);
 
 	/* TODO: signal the winner */
-	//signal(SIGUSR1)
+	kill(pid[winner], SIGUSR1)
 
 	/* TODO: signal all players the end of game */
 	for (i = 0; i < NUM_PLAYERS; i++) {
