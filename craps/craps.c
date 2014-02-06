@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	for (i = 0; i < NUM_PLAYERS; i++) {
 		/* TODO: spawn the processes that simulate the players */
 
-	  switch(fork()){
+	  switch(id = fork()){
 	  case -1:
 	    perror("Failed to fork.");
 	    exit(EXIT_FAILURE);
@@ -54,9 +54,7 @@ int main(int argc, char *argv[])
 	    close(pfd[i*2][0]);
 	    exit(EXIT_SUCCESS);
 	  default:
-	    //close(pfd[i][1]);
-	    //close(pfd[i*2][0]);
-	    //wait(NULL);
+	    waitpid(id);
 	    break;
 	  }
 	  //exit(EXIT_SUCCESS);
@@ -67,9 +65,7 @@ int main(int argc, char *argv[])
 	for (i = 0; i < NUM_PLAYERS; i++) {
 		seed++;
 		/* TODO: send the seed to the players */
-		//void * seed_tmp = (void *) seed;
 		write(pfd[i*2][1], &seed, sizeof(int));
-		//printf("%d \n" , seed);
 	}
 
 	/* TODO: get the dice results from the players, find the winner */
@@ -94,6 +90,10 @@ int main(int argc, char *argv[])
 	/* TODO: signal all players the end of game */
 	for (i = 0; i < NUM_PLAYERS; i++) {
 
+	}
+
+	for (i = 0; i < NUM_PLAYERS; i++) {
+	  wait(NULL);
 	}
 
 	printf("master: the game ends\n");
