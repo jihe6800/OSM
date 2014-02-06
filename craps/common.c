@@ -89,7 +89,7 @@ void shooter(int id, int seed_fd_rd, int score_fd_wr)
 
 	write(score_fd_wr, &score, sizeof(int));
 	/* spin while I wait for the results */
-	while (results) ;
+	while (!results) ;
 
 	if (winner)
 		fprintf(stderr, "player %d: Walking away rich\n", id);
