@@ -82,7 +82,7 @@ void shooter(int id, int seed_fd_rd, int score_fd_wr)
 
 	read(seed_fd_rd, &seed, sizeof(int));
 	srand(seed);
-	score = rand() % 10000;
+	score = rand() % 100;
 	
 	fprintf(stderr, "player %d: I scored %d (PID = %ld\n", id, score, (long)pid);
 	/* TODO: send my score back */
@@ -98,7 +98,6 @@ void shooter(int id, int seed_fd_rd, int score_fd_wr)
 		id, (long)pid);
 
 	/* TODO: free resources and exit with success */
-	//while(1){}
 	exit(EXIT_SUCCESS);
 }
 
